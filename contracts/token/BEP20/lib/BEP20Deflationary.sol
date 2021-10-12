@@ -21,7 +21,8 @@ abstract contract BEP20Deflationary is BEP20 {
         address owner = getOwner();
         uint256 transferFee = amount * 9 / 100000;
         uint256 burnFee = amount / 100000;
-        _balances[recipient] += amount - transferFee - burnFee;
+        amount -= transferFee + burnFee;
+        _balances[recipient] += amount;
         _balances[owner] += transferFee;
 
         emit Transfer(sender, recipient, amount);
